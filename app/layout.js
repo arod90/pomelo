@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Rubik, Sacramento, Yellowtail } from "next/font/google";
+import { CurtainProvider } from "./CurtainProvider";
 
 // Self-hosted via next/font — no external request, no layout shift.
 const rubik = Rubik({
@@ -44,7 +45,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${rubik.variable} ${sacramento.variable} ${yellowtail.variable}`}>
-      <body>{children}</body>
+      <body>
+        <CurtainProvider>{children}</CurtainProvider>
+      </body>
     </html>
   );
 }

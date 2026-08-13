@@ -3,10 +3,8 @@ import React from "react";
 import { Button } from "@/components/Button";
 import { IconButton } from "@/components/IconButton";
 import { Card } from "@/components/Card";
-import { Dialog } from "@/components/Dialog";
-import { Input } from "@/components/Input";
-import { Select } from "@/components/Select";
 import { initPomeloMotion } from "@/lib/motion";
+import { useCurtainNav } from "./CurtainProvider";
 
 const HERO_IMAGES = [
   "/assets/hero/pomelo-1.jpg",
@@ -22,7 +20,7 @@ function go(id) {
 }
 
 /* ---------- Hero: per-letter image-clipped POMELO ---------- */
-function Hero({ onReserve }) {
+function Hero({ onReserve, onSeeMenu }) {
   const letters = "POMELO".split("");
   return (
     <header id="inicio" style={{ position: "relative", zIndex: 2, minHeight: "calc(100svh - 72px)", display: "flex", flexDirection: "column", justifyContent: "center", paddingBlock: "var(--space-5)", overflowX: "hidden" }}>
@@ -73,7 +71,7 @@ function Hero({ onReserve }) {
               <p style={{ margin: "0 0 var(--space-5)", fontStyle: "italic", fontWeight: 700 }}>¡Bienvenido a Pomelo!</p>
               <div className="cta-row">
                 <Button size="lg" onClick={onReserve}>Reservar</Button>
-                <Button size="lg" variant="secondary" onClick={() => go("cafe")}>Ver la carta</Button>
+                <Button size="lg" variant="secondary" onClick={onSeeMenu}>Ver la carta</Button>
               </div>
             </div>
           </div>
@@ -86,7 +84,7 @@ function Hero({ onReserve }) {
 /* ---------- Seasonal coral feature block ---------- */
 function Seasonal() {
   return (
-    <section className="container" style={{ marginBottom: "var(--section-gap)" }}>
+    <section className="container" style={{ marginBottom: "var(--section-gap)", position: "relative", zIndex: 1 }}>
       <Card elevation="accent" padding="none" data-reveal="scale" style={{ borderRadius: "var(--radius-xl)", padding: "clamp(2rem,5vw,4.5rem)" }}>
         <div data-reveal style={{ textAlign: "center", color: "var(--text-on-accent)", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--text-xs)", letterSpacing: "var(--tracking-caps)", textTransform: "uppercase" }}>
           Esta primavera en Pomelo
@@ -122,7 +120,7 @@ function FeatureCol({ title, body, cta, arrow, onClick, ...rest }) {
 /* ---------- Big-word section (Café / Brunch) with script overlay ---------- */
 function BigWordSection({ id, word, script, italicLead, body, extraTitle, extraBody, flip }) {
   return (
-    <section id={id} className="container" style={{ marginBottom: "var(--section-gap)", position: "relative" }}>
+    <section id={id} className="container" style={{ marginBottom: "var(--section-gap)", position: "relative", zIndex: 1 }}>
       <div style={{ position: "relative" }}>
         <div data-reveal aria-hidden style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(5rem,20vw,17rem)", lineHeight: 0.85, letterSpacing: "-0.03em", color: "var(--sand-300)", textTransform: "uppercase" }}>{word}</div>
         <span data-reveal style={{ position: "absolute", left: flip ? "auto" : "8%", right: flip ? "8%" : "auto", bottom: "-0.1em", fontFamily: "var(--font-script-bold)", color: "var(--accent)", fontSize: "clamp(2.5rem,9vw,7rem)", lineHeight: 0.8 }}>{script}</span>
@@ -142,7 +140,7 @@ function BigWordSection({ id, word, script, italicLead, body, extraTitle, extraB
 /* ---------- About / doodle scene ---------- */
 function About() {
   return (
-    <section id="nosotros" style={{ position: "relative", marginBottom: "var(--section-gap)" }}>
+    <section id="nosotros" style={{ position: "relative", zIndex: 1, marginBottom: "var(--section-gap)" }}>
       <img src="/assets/storefront.svg" alt="" aria-hidden="true" style={{ position: "absolute", top: "-4%", left: 0, width: "100%", opacity: 0.5, pointerEvents: "none", zIndex: 0 }} />
       <div className="container" style={{ position: "relative", zIndex: 1, paddingTop: "clamp(5rem, 26vw, 22rem)" }}>
         <div className="two-col" style={{ alignItems: "start" }} data-stagger>
@@ -244,32 +242,10 @@ function SiteNav({ active, onNav, onReserve }) {
   );
 }
 
-/* ---------- Reservation dialog ---------- */
-function ReserveDialog({ open, onClose }) {
-  const [done, setDone] = React.useState(false);
-  React.useEffect(() => { if (open) setDone(false); }, [open]);
-  return (
-    <Dialog open={open} onClose={onClose} width={460}
-      title={done ? "¡Reserva confirmada!" : "Reservar mesa"}
-      footer={done
-        ? <Button onClick={onClose}>Perfecto</Button>
-        : <><Button variant="ghost" onClick={onClose}>Cancelar</Button><Button onClick={() => setDone(true)}>Confirmar</Button></>}>
-      {done ? "Te esperamos pronto en Pomelo. Recibirás un correo con los detalles."
-        : <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-            <Input label="Nombre" placeholder="Tu nombre" />
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-3)" }}>
-              <Select label="Personas"><option>2 personas</option><option>4 personas</option><option>6 personas</option></Select>
-              <Select label="Hora"><option>9:00</option><option>10:30</option><option>12:00</option><option>13:30</option></Select>
-            </div>
-          </div>}
-    </Dialog>
-  );
-}
-
-/* ---------- Hand-drawn continuous-line motif ---------- */
+/* ---------- Hand-drawn continuous-line motif (draws behind the whole page) ---------- */
 function HeroDoodle() {
   return (
-    <svg className="hero-doodle" viewBox="0 0 1600 1400" preserveAspectRatio="none" aria-hidden="true">
+    <svg className="hero-doodle" style={{ zIndex: 0 }} viewBox="0 0 1600 1400" preserveAspectRatio="none" aria-hidden="true">
       <path pathLength="1" d="M -40 250 C 110 110 290 78 452 146 C 604 210 690 66 872 74 C 1030 82 1120 206 1300 176 C 1416 156 1470 66 1552 44 C 1618 26 1666 118 1604 224 C 1524 360 1372 350 1428 528 C 1476 682 1566 772 1524 956 C 1494 1082 1408 1150 1452 1286" />
     </svg>
   );
@@ -277,40 +253,43 @@ function HeroDoodle() {
 
 export default function Page() {
   const [nav, setNav] = React.useState(0);
-  const [reserveOpen, setReserveOpen] = React.useState(false);
+  const navTo = useCurtainNav();
+  const reserve = () => navTo("/reservar");
+  const seeMenu = () => navTo("/carta");
   React.useEffect(() => {
+    document.title = "Pomelo — Brunch & café de especialidad";
     const cleanup = initPomeloMotion();
     const id = (window.location.hash || "").replace("#", "");
     if (id) setTimeout(() => go(id), 260);
     return cleanup;
   }, []);
-  const reserve = () => setReserveOpen(true);
   const onNav = (i) => {
     setNav(i);
-    const acts = [() => go("inicio"), () => go("cafe"), () => go("brunch"), () => go("cafe"), () => go("nosotros")];
+    const acts = [() => go("inicio"), () => go("cafe"), () => go("brunch"), () => seeMenu(), () => go("nosotros")];
     acts[i]();
   };
   return (
     <React.Fragment>
       <SiteNav active={nav} onNav={onNav} onReserve={reserve} />
-      <div style={{ position: "relative" }}>
+      {/* One relative canvas from hero through About, so the hand-drawn line traces
+          behind every section instead of stopping after the hero. */}
+      <div style={{ position: "relative", isolation: "isolate" }}>
         <HeroDoodle />
-        <Hero onReserve={reserve} />
+        <Hero onReserve={reserve} onSeeMenu={seeMenu} />
         <Seasonal />
+        <BigWordSection id="cafe" word="Café" script="todo el día"
+          italicLead="Café de especialidad en un ambiente cálido y acogedor"
+          body="Trabajamos distintos métodos de extracción para cada gusto: espresso intenso, capuchino cremoso, flat white sedoso, filtros de origen…"
+          extraTitle="¿El café no es lo tuyo?"
+          extraBody="Prueba nuestras bebidas blancas — chai, matcha — tés, zumos frescos y refrescos de la casa." />
+        <BigWordSection id="brunch" word="Brunch" script="9 – 14h" flip
+          italicLead="Recetas frescas de mercado, generosas y de temporada"
+          body="En Pomelo el brunch son platos coloridos, generosos y con chispa, hechos cada mañana con producto local y de temporada."
+          extraTitle="¡Cada estación, su brunch!"
+          extraBody="Tres meses para descubrir nuevas recetas dulces y saladas, imaginadas por nuestra chef y su equipo." />
+        <About />
       </div>
-      <BigWordSection id="cafe" word="Café" script="todo el día"
-        italicLead="Café de especialidad en un ambiente cálido y acogedor"
-        body="Trabajamos distintos métodos de extracción para cada gusto: espresso intenso, capuchino cremoso, flat white sedoso, filtros de origen…"
-        extraTitle="¿El café no es lo tuyo?"
-        extraBody="Prueba nuestras bebidas blancas — chai, matcha — tés, zumos frescos y refrescos de la casa." />
-      <BigWordSection id="brunch" word="Brunch" script="9 – 14h" flip
-        italicLead="Recetas frescas de mercado, generosas y de temporada"
-        body="En Pomelo el brunch son platos coloridos, generosos y con chispa, hechos cada mañana con producto local y de temporada."
-        extraTitle="¡Cada estación, su brunch!"
-        extraBody="Tres meses para descubrir nuevas recetas dulces y saladas, imaginadas por nuestra chef y su equipo." />
-      <About />
       <Footer onReserve={reserve} />
-      <ReserveDialog open={reserveOpen} onClose={() => setReserveOpen(false)} />
     </React.Fragment>
   );
 }
