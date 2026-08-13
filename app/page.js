@@ -28,7 +28,7 @@ function Hero({ onReserve, onSeeMenu }) {
           POMELO title, then shoots down the right. Scoped to the hero with an
           aspect-preserving viewBox so the curves never distort. */}
       <svg className="hero-doodle" style={{ zIndex: 0 }} viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <path d="M -60 232 C 168 150 344 150 486 214 C 582 258 620 250 664 212 C 742 150 722 84 652 104 C 590 122 620 232 726 244 C 806 252 866 214 924 182 C 1086 104 1268 78 1424 152 C 1524 200 1522 366 1514 520 C 1506 662 1550 762 1516 886" />
+        <path d="M -60 232 C 168 150 344 150 486 214 C 582 258 620 250 664 212 C 742 150 722 84 652 104 C 590 122 620 232 726 244 C 806 252 866 214 924 182 C 1086 104 1268 78 1424 148 C 1520 190 1556 300 1500 388 C 1466 442 1400 442 1382 396" />
       </svg>
       <div style={{ position: "relative", zIndex: 1, width: "100%", boxSizing: "border-box", paddingInline: "clamp(1rem, 3vw, 3.5rem)", overflow: "hidden" }}>
         <div>
