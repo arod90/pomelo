@@ -24,7 +24,13 @@ function Hero({ onReserve, onSeeMenu }) {
   const letters = "POMELO".split("");
   return (
     <header id="inicio" style={{ position: "relative", zIndex: 2, minHeight: "calc(100svh - 72px)", display: "flex", flexDirection: "column", justifyContent: "center", paddingBlock: "var(--space-5)", overflowX: "hidden" }}>
-      <div style={{ width: "100%", boxSizing: "border-box", paddingInline: "clamp(1rem, 3vw, 3.5rem)", overflow: "hidden" }}>
+      {/* Signature flourish: a single continuous line that twirls above/behind the
+          POMELO title, then shoots down the right. Scoped to the hero with an
+          aspect-preserving viewBox so the curves never distort. */}
+      <svg className="hero-doodle" style={{ zIndex: 0 }} viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <path pathLength="1" d="M -60 232 C 168 150 344 150 486 214 C 582 258 620 250 664 212 C 742 150 722 84 652 104 C 590 122 620 232 726 244 C 806 252 866 214 924 182 C 1086 104 1268 78 1424 152 C 1524 200 1522 366 1514 520 C 1506 662 1550 762 1516 886" />
+      </svg>
+      <div style={{ position: "relative", zIndex: 1, width: "100%", boxSizing: "border-box", paddingInline: "clamp(1rem, 3vw, 3.5rem)", overflow: "hidden" }}>
         <div>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "nowrap", lineHeight: 0.78 }}>
             {letters.map((ch, i) => (
@@ -242,15 +248,6 @@ function SiteNav({ active, onNav, onReserve }) {
   );
 }
 
-/* ---------- Hand-drawn continuous-line motif (draws behind the whole page) ---------- */
-function HeroDoodle() {
-  return (
-    <svg className="hero-doodle" style={{ zIndex: 0 }} viewBox="0 0 1600 1400" preserveAspectRatio="none" aria-hidden="true">
-      <path pathLength="1" d="M -40 250 C 110 110 290 78 452 146 C 604 210 690 66 872 74 C 1030 82 1120 206 1300 176 C 1416 156 1470 66 1552 44 C 1618 26 1666 118 1604 224 C 1524 360 1372 350 1428 528 C 1476 682 1566 772 1524 956 C 1494 1082 1408 1150 1452 1286" />
-    </svg>
-  );
-}
-
 export default function Page() {
   const [nav, setNav] = React.useState(0);
   const navTo = useCurtainNav();
@@ -271,11 +268,7 @@ export default function Page() {
   return (
     <React.Fragment>
       <SiteNav active={nav} onNav={onNav} onReserve={reserve} />
-      {/* One relative canvas from hero through About, so the hand-drawn line traces
-          behind every section instead of stopping after the hero. */}
-      <div style={{ position: "relative", isolation: "isolate" }}>
-        <HeroDoodle />
-        <Hero onReserve={reserve} onSeeMenu={seeMenu} />
+      <Hero onReserve={reserve} onSeeMenu={seeMenu} />
         <Seasonal />
         <BigWordSection id="cafe" word="Café" script="todo el día"
           italicLead="Café de especialidad en un ambiente cálido y acogedor"
@@ -288,7 +281,6 @@ export default function Page() {
           extraTitle="¡Cada estación, su brunch!"
           extraBody="Tres meses para descubrir nuevas recetas dulces y saladas, imaginadas por nuestra chef y su equipo." />
         <About />
-      </div>
       <Footer onReserve={reserve} />
     </React.Fragment>
   );
