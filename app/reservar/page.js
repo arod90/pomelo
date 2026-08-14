@@ -32,9 +32,7 @@ function Stepper({ step }) {
 function Aside(props) {
   return (
     <div className="aside" {...props}>
-      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--espresso-800)", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 13, textAlign: "center", padding: 20 }}>
-        Foto del local / brunch<br /><span style={{ fontWeight: 400, color: "var(--text-muted)" }}>(placeholder)</span>
-      </div>
+      <img src="/assets/reservar-terrace.jpg" alt="Terraza de Pomelo al atardecer, mesas con velas entre plantas" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
       <div style={{ position: "absolute", left: 20, right: 20, bottom: 20, background: "color-mix(in srgb,var(--espresso-950) 62%,transparent)", color: "var(--cream-50)", borderRadius: "var(--radius-lg)", padding: "var(--space-4) var(--space-5)", backdropFilter: "blur(4px)" }}>
         <div style={{ fontFamily: "var(--font-script-bold)", fontSize: 30, color: "var(--coral-200)", lineHeight: 0.9 }}>nos vemos ahí</div>
         <p style={{ margin: "6px 0 0", fontSize: "var(--text-sm)", opacity: 0.9 }}>
