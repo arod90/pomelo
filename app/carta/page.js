@@ -27,7 +27,7 @@ function Masthead() {
   return (
     <section style={{ position: "relative", overflow: "hidden", background: "var(--surface-sunken)", borderBottom: "1.5px solid var(--sand-300)" }}>
       <CitrusDecor />
-      <div className="container" style={{ position: "relative", display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: "var(--space-8)", alignItems: "center", padding: "var(--space-8) var(--container-pad)" }}>
+      <div className="container carta-masthead" style={{ position: "relative", display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: "var(--space-8)", alignItems: "center", padding: "var(--space-8) var(--container-pad)" }}>
         <div>
           <span style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--text-xs)", letterSpacing: "var(--tracking-caps)", textTransform: "uppercase", color: "var(--text-accent)" }}>
             Producto local · de temporada
@@ -51,7 +51,7 @@ function Masthead() {
             <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}><span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--blue-400)" }} />De temporada</span>
           </div>
         </div>
-        <div style={{ borderRadius: "var(--radius-xl)", aspectRatio: "3/4", minHeight: 260, backgroundImage: "url('/assets/menu/french-toast-w.jpg')", backgroundSize: "cover", backgroundPosition: "center", boxShadow: "var(--shadow-md)" }} />
+        <div className="carta-masthead__img" style={{ borderRadius: "var(--radius-xl)", aspectRatio: "3/4", minHeight: 260, backgroundImage: "url('/assets/menu/french-toast-w.jpg')", backgroundSize: "cover", backgroundPosition: "center", boxShadow: "var(--shadow-md)" }} />
       </div>
     </section>
   );
@@ -64,7 +64,7 @@ function FeaturedDish({ dish, tint, index }) {
   const badgeBg = dark ? "var(--accent)" : "var(--cream-50)";
   const badgeFg = dark ? "var(--cream-50)" : "var(--coral-600)";
   return (
-    <div data-reveal="scale" style={{ display: "grid", gridTemplateColumns: flip ? "1fr 1.15fr" : "1.15fr 1fr", gap: 0, background: tint, color: fg, borderRadius: "var(--radius-xl)", overflow: "hidden", boxShadow: "var(--shadow-lg)", marginBottom: "var(--space-7)" }}>
+    <div data-reveal="scale" className="feat-dish" style={{ display: "grid", gridTemplateColumns: flip ? "1fr 1.15fr" : "1.15fr 1fr", gap: 0, background: tint, color: fg, borderRadius: "var(--radius-xl)", overflow: "hidden", boxShadow: "var(--shadow-lg)", marginBottom: "var(--space-7)" }}>
       <div style={{ order: flip ? 2 : 1, minHeight: 320, backgroundImage: `url('${dish.image}')`, backgroundSize: "cover", backgroundPosition: "center" }} />
       <div style={{ order: flip ? 1 : 2, padding: "clamp(1.6rem,3vw,2.8rem)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <span style={{ alignSelf: "flex-start", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "var(--text-2xs)", letterSpacing: "var(--tracking-caps)", textTransform: "uppercase", background: badgeBg, color: badgeFg, padding: "5px 12px", borderRadius: "var(--radius-pill)", marginBottom: "var(--space-4)" }}>

@@ -128,7 +128,7 @@ function BigWordSection({ id, word, script, italicLead, body, extraTitle, extraB
   return (
     <section id={id} className="container" style={{ marginBottom: "var(--section-gap)", position: "relative", zIndex: 1 }}>
       <div style={{ position: "relative" }}>
-        <div data-reveal aria-hidden style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(5rem,20vw,17rem)", lineHeight: 0.85, letterSpacing: "-0.03em", color: "var(--sand-300)", textTransform: "uppercase" }}>{word}</div>
+        <div data-reveal aria-hidden style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(3.6rem,20vw,17rem)", lineHeight: 0.85, letterSpacing: "-0.03em", color: "var(--sand-300)", textTransform: "uppercase" }}>{word}</div>
         <span data-reveal style={{ position: "absolute", left: flip ? "auto" : "8%", right: flip ? "8%" : "auto", bottom: "-0.1em", fontFamily: "var(--font-script-bold)", color: "var(--accent)", fontSize: "clamp(2.5rem,9vw,7rem)", lineHeight: 0.8 }}>{script}</span>
       </div>
       <div className="two-col" style={{ marginTop: "var(--space-6)" }} data-stagger>

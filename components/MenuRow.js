@@ -4,7 +4,7 @@ export function MenuRow({ name, description, price, tags = [], style, ...rest })
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "4px", padding: "var(--space-3) 0", ...style }} {...rest}>
       <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
-        <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--weight-bold)", fontSize: "var(--text-md)", color: "var(--text-body)", whiteSpace: "nowrap" }}>
+        <span className="menu-name" style={{ fontFamily: "var(--font-display)", fontWeight: "var(--weight-bold)", fontSize: "var(--text-md)", color: "var(--text-body)", whiteSpace: "nowrap" }}>
           {name}
         </span>
         <span aria-hidden style={{ flex: 1, borderBottom: "1.5px dotted var(--border-default)", transform: "translateY(-3px)" }} />

@@ -87,7 +87,7 @@ export default function ReservarPage() {
 
             {step === 0 && (
               <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-5)" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)" }}>
+                <div className="form-row-2" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: "var(--space-4)" }}>
                   <Select label="Personas" value={data.people} onChange={(e) => set("people", e.target.value)}>
                     {["1 persona", "2 personas", "3 personas", "4 personas", "5 personas", "6 personas", "+6 (grupo)"].map((o) => <option key={o}>{o}</option>)}
                   </Select>

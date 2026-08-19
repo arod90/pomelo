@@ -294,6 +294,33 @@ a:hover { color: var(--link-hover); }
 .cdot { position: absolute; border-radius: 50%; pointer-events: none; }
 .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 56px; }
 @media (max-width: 760px) { .menu-grid { grid-template-columns: 1fr; } }
+/* Carta masthead ("La Carta"): editorial two-up on desktop. On phones it stacks
+   to one column and drops the decorative photo — otherwise the image bled off
+   the right edge while crushing the title into a ~165px column. The featured
+   dish right below already carries a strong food image, so nothing is lost. */
+@media (max-width: 760px) {
+  .carta-masthead { grid-template-columns: 1fr !important; gap: var(--space-4) !important; padding-block: var(--space-6) !important; }
+  .carta-masthead__img { display: none !important; }
+}
+/* Featured dish cards: image | text side-by-side on desktop, stacked (image on top) on phones */
+@media (max-width: 700px) {
+  .feat-dish { grid-template-columns: 1fr !important; }
+  .feat-dish > :first-child { order: 1 !important; min-height: 230px !important; }
+  .feat-dish > :last-child { order: 2 !important; }
+}
+/* Very narrow phones: let long dish names wrap instead of pushing the price off-screen,
+   and tighten the header cluster (brand · CTA · burger). */
+@media (max-width: 420px) {
+  .menu-name { white-space: normal !important; }
+  .snav-right { gap: 12px !important; }
+  .snav { gap: 12px; }
+  .nb-brand { font-size: 1.7rem !important; }
+  .form-row-2 { grid-template-columns: 1fr !important; }
+}
+/* Entrance animations (scale / translate) briefly extend past the viewport on phones;
+   `clip` prevents sideways scroll without turning body into a scroll container
+   (which `hidden` would, breaking position:sticky). */
+html, body { overflow-x: clip; }
 
 /* ================= RESERVATION (/reservar) PAGE ================ */
 .split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--space-8); align-items: start; }
